@@ -5,7 +5,7 @@ using Sample.DbConnect;
 using Sample.Models;
 using Sample.Models.P2P;
 
-namespace Sample.Controllers
+namespace Sample.Controllers  
 {
     [Route("api/[controller]")]
     [ApiController]
