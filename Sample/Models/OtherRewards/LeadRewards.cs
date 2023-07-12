@@ -1,4 +1,5 @@
 ﻿using Sample.Models.Rewards;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Sample.Models.OtherRewards
 {
@@ -27,7 +28,16 @@ namespace Sample.Models.OtherRewards
         public Campaigns Campaigns
         { get; set; }
 
+
+        public LeadCitation LeadCitation { get; set; }
+        
+       
+
         public LeadRewardResults LeadRewardResults { get; set; }
+
+       
+
+
 
 
     }

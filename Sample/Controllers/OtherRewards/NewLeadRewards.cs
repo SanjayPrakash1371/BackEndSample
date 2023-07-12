@@ -13,5 +13,7 @@
         public int stars { get; set; }
 
         public int month { get; set; }
+
+        public string citation { get; set; }    
     }
 }

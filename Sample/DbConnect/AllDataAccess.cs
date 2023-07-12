@@ -3,6 +3,7 @@ using Sample.Models;
 using Sample.Models.OtherRewards;
 using Sample.Models.P2P;
 using Sample.Models.Rewards;
+using System.Reflection.Metadata;
 
 namespace Sample.DbConnect
 {
@@ -28,7 +29,11 @@ namespace Sample.DbConnect
 
         public DbSet<LeadRewardResults> LeadRewardResults { get; set;}
 
+        public DbSet<LeadCitation> LeadCitation { get; set;}
 
-        
+        public DbSet<LeadCitationReplies> LeadReplyCitation { get; set; }
+
+
+
     }
 }

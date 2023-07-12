@@ -93,6 +93,15 @@ namespace Sample.Controllers.MonthlyRewards
 
             leadRewardResults.campname= dataAccess.Campaigns.Find(leadRewardResults.campId).Name;
 
+            // add Citation
+
+            LeadCitation citation= new LeadCitation();
+
+            citation.citation = nlr.citation;
+            citation.nominatorId= nlr.nominatorId;
+            leadRewards.LeadCitation = citation;
+           
+
 
 
             // Add Final Connections
