@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sample.DbConnect;
 
@@ -11,9 +12,11 @@ using Sample.DbConnect;
 namespace Sample.Migrations
 {
     [DbContext(typeof(AllDataAccess))]
-    partial class AllDataAccessModelSnapshot : ModelSnapshot
+    [Migration("20230712065724_CampAdded")]
+    partial class CampAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,106 +48,6 @@ namespace Sample.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Employees");
-                });
-
-            modelBuilder.Entity("Sample.Models.OtherRewards.LeadRewardResults", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<int?>("CampaignsId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("awardType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("campId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("campname")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("employeeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("nominatedEmpId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("nominatorId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("rewardId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("stars")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("CampaignsId");
-
-                    b.HasIndex("employeeId");
-
-                    b.ToTable("LeadRewardResults");
-                });
-
-            modelBuilder.Entity("Sample.Models.OtherRewards.LeadRewards", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<int>("CampaignsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LeadRewardResultsid")
-                        .HasColumnType("int");
-
-                    b.Property<string>("awardCategory")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("campId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("employeeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("month")
-                        .HasColumnType("int");
-
-                    b.Property<string>("nominatedEmpId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("nominatorId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("rewardId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("stars")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("CampaignsId");
-
-                    b.HasIndex("LeadRewardResultsid");
-
-                    b.HasIndex("employeeId");
-
-                    b.ToTable("LeadRewards");
                 });
 
             modelBuilder.Entity("Sample.Models.P2P.PeerToPeer", b =>
@@ -244,7 +147,7 @@ namespace Sample.Migrations
                     b.Property<int>("rewardId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("typesid")
+                    b.Property<int>("typesid")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -292,46 +195,6 @@ namespace Sample.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("Sample.Models.OtherRewards.LeadRewardResults", b =>
-                {
-                    b.HasOne("Sample.Models.Rewards.Campaigns", "Campaigns")
-                        .WithMany()
-                        .HasForeignKey("CampaignsId");
-
-                    b.HasOne("Sample.Models.Employee", "employee")
-                        .WithMany()
-                        .HasForeignKey("employeeId");
-
-                    b.Navigation("Campaigns");
-
-                    b.Navigation("employee");
-                });
-
-            modelBuilder.Entity("Sample.Models.OtherRewards.LeadRewards", b =>
-                {
-                    b.HasOne("Sample.Models.Rewards.Campaigns", "Campaigns")
-                        .WithMany()
-                        .HasForeignKey("CampaignsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Sample.Models.OtherRewards.LeadRewardResults", "LeadRewardResults")
-                        .WithMany()
-                        .HasForeignKey("LeadRewardResultsid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Sample.Models.Employee", "employee")
-                        .WithMany()
-                        .HasForeignKey("employeeId");
-
-                    b.Navigation("Campaigns");
-
-                    b.Navigation("LeadRewardResults");
-
-                    b.Navigation("employee");
-                });
-
             modelBuilder.Entity("Sample.Models.P2P.PeerToPeer", b =>
                 {
                     b.HasOne("Sample.Models.P2P.PeerToPeerResults", "Results")
@@ -366,7 +229,9 @@ namespace Sample.Migrations
                 {
                     b.HasOne("Sample.Models.Rewards.RewardsTypes", "types")
                         .WithMany()
-                        .HasForeignKey("typesid");
+                        .HasForeignKey("typesid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("types");
                 });

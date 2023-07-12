@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Sample.Models.Rewards;
+using System.ComponentModel.DataAnnotations;
 
 namespace Sample.Models.P2P
 {
@@ -16,7 +17,11 @@ namespace Sample.Models.P2P
 
        public string? empId { get; set; }
 
+        public int campId { get; set; }
+
         public Employee? employee { get; set; }
+
+        public Campaigns? campaigns { get; set; }
 
         public PeerToPeerResults? Results { get; set; }  
     }

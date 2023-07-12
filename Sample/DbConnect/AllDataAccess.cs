@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Sample.Models;
+using Sample.Models.OtherRewards;
 using Sample.Models.P2P;
+using Sample.Models.Rewards;
 
 namespace Sample.DbConnect
 {
@@ -14,9 +16,19 @@ namespace Sample.DbConnect
 
         public DbSet<Roles> Roles { get; set; }
 
+
+        public DbSet<RewardsTypes> RewardsTypes { get; set; }
+
+        public DbSet<Campaigns> Campaigns { get; set; }
         public DbSet<PeerToPeer> PeerToPeer { get; set; }
 
         public DbSet<PeerToPeerResults> PeerToPeerResults { get; set;}
+
+        public DbSet<LeadRewards> LeadRewards { get; set;}
+
+        public DbSet<LeadRewardResults> LeadRewardResults { get; set;}
+
+
         
     }
 }

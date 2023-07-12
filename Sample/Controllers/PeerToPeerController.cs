@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Sample.DbConnect;
 using Sample.Models;
 using Sample.Models.P2P;
+using Sample.Models.Rewards;
 
 namespace Sample.Controllers
 {
@@ -49,6 +50,7 @@ namespace Sample.Controllers
         public async Task<ActionResult<PeerToPeer>> AddAward(NewPeerToPeer p)
         {
             PeerToPeer p2 = new PeerToPeer();
+            p2.campId= p.campId;
             p2.nominatorId = p.nominatorId;
 
             p2.empId = p.empId;
@@ -66,11 +68,17 @@ namespace Sample.Controllers
             result.citation = p.citation;
 
            
-
+            //Employee
             Employee employee = await dataAccess.Employees.FirstOrDefaultAsync(x=>x.empId.Equals(p2.empId));
             result.employee = employee;
+            
+
+            //Campaign 
+            Campaigns camp = await dataAccess.Campaigns.FirstOrDefaultAsync(x=>x.Id.Equals(p2.campId));
 
 
+
+            p2.campaigns= camp;
             p2.Results = result;
             p2.employee = employee;
             

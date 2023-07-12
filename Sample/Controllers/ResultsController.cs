@@ -21,7 +21,11 @@ namespace Sample.Controllers
 
             var arr = dataAccess.PeerToPeerResults.GroupBy(p => p.nomainatedEmpId);
 
-            var result = (from l in arr select new {Id=l.Key, Nominations=l.ToList().Count() }).OrderByDescending(x=>x.Nominations).Take(count) ;
+            var result = (from l in arr select new {Id=l.Key, Nominations=l.ToList().Count() })
+                .OrderByDescending(x=>x.Nominations).Take(count) ;
+
+
+            
 
 
             return Ok(result);

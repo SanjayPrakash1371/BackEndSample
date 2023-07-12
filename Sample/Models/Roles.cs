@@ -11,6 +11,6 @@ namespace Sample.Models
 
         public string roles { get; set; }
 
-        public Employee emp { get; set; }
+       // public Employee emp { get; set; }
     }
 }

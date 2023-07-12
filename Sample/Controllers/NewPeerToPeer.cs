@@ -2,6 +2,8 @@
 {
     public class NewPeerToPeer
     {
+
+        public int campId { get; set; } 
           public string nominatorId { get; set; }
         public string empId { get; set; }
 
