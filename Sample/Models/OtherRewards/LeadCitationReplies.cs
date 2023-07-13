@@ -9,11 +9,13 @@ namespace Sample.Models.OtherRewards
 
         public int campId { get; set; }
 
-        public int nominatorId { get; set; }
+        public string nominatorId { get; set; }
+
+        public string replierId { get; set; }  
 
         public string Replycitation { get; set; }
 
-        public LeadCitation? leadCitation;
+        public LeadCitation? leadCitation { get; set; }
 
         public Campaigns? Campaigns { get; set; }
 

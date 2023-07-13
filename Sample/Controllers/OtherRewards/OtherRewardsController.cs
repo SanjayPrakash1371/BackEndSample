@@ -100,11 +100,16 @@ namespace Sample.Controllers.MonthlyRewards
             citation.citation = nlr.citation;
             citation.nominatorId= nlr.nominatorId;
             leadRewards.LeadCitation = citation;
-           
+
+            /// cmp added 
+            citation.Campaigns = campaigns;
+
 
 
 
             // Add Final Connections
+
+            leadRewards.LeadCitation = citation;
 
             leadRewards.LeadRewardResults = leadRewardResults;
 

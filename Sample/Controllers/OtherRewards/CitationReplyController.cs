@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Sample.DbConnect;
 using Sample.Models.OtherRewards;
 
@@ -15,19 +16,34 @@ namespace Sample.Controllers.OtherRewards
 
         [HttpPost]
 
-        public async Task<ActionResult<LeadCitationReplies>> addReply(LeadCitationReplies replies)
+        public async Task<ActionResult<LeadCitationReplies>> addReply(TempLeadCitationReplies Tempreplies)
         {
+            LeadCitationReplies leadCitationReplies = new LeadCitationReplies();
+
+            // Foreign KEy values added
+
+            leadCitationReplies.Campaigns= dataAccess.Campaigns.FirstOrDefault(x => x.Id == Tempreplies.campId);
 
 
-            replies.Campaigns = dataAccess.Campaigns.FirstOrDefault(x => x.Id == replies.campId);
+            // required values
 
-            replies.leadCitation=dataAccess.LeadCitation.FirstOrDefault(x=>x.nominatorId.Equals(replies.nominatorId));
+            leadCitationReplies.Replycitation = Tempreplies.Replycitation;
 
-            await dataAccess.LeadReplyCitation.AddAsync(replies);   
+            leadCitationReplies.nominatorId= Tempreplies.nominatorId;
+
+            leadCitationReplies.replierId= Tempreplies.replierId;
+
+            leadCitationReplies.campId=Tempreplies.campId;
+
+            leadCitationReplies.leadCitation = dataAccess.LeadCitation.
+                 FirstOrDefault(x => x.nominatorId.Equals(Tempreplies.nominatorId) && x.Campaigns.Id==Tempreplies.campId);
+
+
+            await dataAccess.LeadReplyCitation.AddAsync(leadCitationReplies);
 
             await dataAccess.SaveChangesAsync();
 
-            return Ok(replies);
+            return Ok(leadCitationReplies);
         }
     }
 }

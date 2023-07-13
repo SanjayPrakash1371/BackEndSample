@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sample.DbConnect;
 
@@ -11,9 +12,11 @@ using Sample.DbConnect;
 namespace Sample.Migrations
 {
     [DbContext(typeof(AllDataAccess))]
-    partial class AllDataAccessModelSnapshot : ModelSnapshot
+    [Migration("20230713064248_ReplyChanges4")]
+    partial class ReplyChanges4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -377,7 +380,7 @@ namespace Sample.Migrations
                         .HasForeignKey("CampaignsId");
 
                     b.HasOne("Sample.Models.OtherRewards.LeadCitation", "leadCitation")
-                        .WithMany("replies")
+                        .WithMany()
                         .HasForeignKey("leadCitationid");
 
                     b.Navigation("Campaigns");
@@ -468,11 +471,6 @@ namespace Sample.Migrations
                         .HasForeignKey("typesid");
 
                     b.Navigation("types");
-                });
-
-            modelBuilder.Entity("Sample.Models.OtherRewards.LeadCitation", b =>
-                {
-                    b.Navigation("replies");
                 });
 #pragma warning restore 612, 618
         }

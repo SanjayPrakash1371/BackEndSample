@@ -29,7 +29,7 @@ namespace Sample.Models.OtherRewards
         { get; set; }
 
 
-        public LeadCitation LeadCitation { get; set; }
+        public LeadCitation? LeadCitation { get; set; }
         
        
 

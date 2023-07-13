@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sample.DbConnect;
 
@@ -11,9 +12,11 @@ using Sample.DbConnect;
 namespace Sample.Migrations
 {
     [DbContext(typeof(AllDataAccess))]
-    partial class AllDataAccessModelSnapshot : ModelSnapshot
+    [Migration("20230713042321_ReplyChanges3")]
+    partial class ReplyChanges3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,14 +87,14 @@ namespace Sample.Migrations
                     b.Property<int?>("CampaignsId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("LeadCitationid")
+                        .HasColumnType("int");
+
                     b.Property<string>("Replycitation")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("campId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("leadCitationid")
                         .HasColumnType("int");
 
                     b.Property<string>("nominatorId")
@@ -106,7 +109,7 @@ namespace Sample.Migrations
 
                     b.HasIndex("CampaignsId");
 
-                    b.HasIndex("leadCitationid");
+                    b.HasIndex("LeadCitationid");
 
                     b.ToTable("LeadReplyCitation");
                 });
@@ -376,13 +379,11 @@ namespace Sample.Migrations
                         .WithMany()
                         .HasForeignKey("CampaignsId");
 
-                    b.HasOne("Sample.Models.OtherRewards.LeadCitation", "leadCitation")
+                    b.HasOne("Sample.Models.OtherRewards.LeadCitation", null)
                         .WithMany("replies")
-                        .HasForeignKey("leadCitationid");
+                        .HasForeignKey("LeadCitationid");
 
                     b.Navigation("Campaigns");
-
-                    b.Navigation("leadCitation");
                 });
 
             modelBuilder.Entity("Sample.Models.OtherRewards.LeadRewardResults", b =>

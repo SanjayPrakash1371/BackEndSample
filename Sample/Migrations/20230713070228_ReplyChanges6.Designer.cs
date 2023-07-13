@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sample.DbConnect;
 
@@ -11,9 +12,11 @@ using Sample.DbConnect;
 namespace Sample.Migrations
 {
     [DbContext(typeof(AllDataAccess))]
-    partial class AllDataAccessModelSnapshot : ModelSnapshot
+    [Migration("20230713070228_ReplyChanges6")]
+    partial class ReplyChanges6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

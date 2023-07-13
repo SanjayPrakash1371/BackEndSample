@@ -1,4 +1,6 @@
-﻿namespace Sample.Models.OtherRewards
+﻿using Sample.Models.Rewards;
+
+namespace Sample.Models.OtherRewards
 {
     public class LeadCitation
     {
@@ -9,7 +11,9 @@
 
         public string citation { get; set; }
 
-        public ICollection<LeadCitationReplies>?  replies { get; set; }   = new List<LeadCitationReplies>(); 
+        public Campaigns? Campaigns { get; set; }
+
+        public ICollection<LeadCitationReplies>?  replies { get; set; } 
 
        
 

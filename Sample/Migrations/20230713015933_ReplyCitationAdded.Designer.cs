@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sample.DbConnect;
 
@@ -11,9 +12,11 @@ using Sample.DbConnect;
 namespace Sample.Migrations
 {
     [DbContext(typeof(AllDataAccess))]
-    partial class AllDataAccessModelSnapshot : ModelSnapshot
+    [Migration("20230713015933_ReplyCitationAdded")]
+    partial class ReplyCitationAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,9 +58,6 @@ namespace Sample.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<int?>("CampaignsId")
-                        .HasColumnType("int");
-
                     b.Property<string>("citation")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -67,8 +67,6 @@ namespace Sample.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
-
-                    b.HasIndex("CampaignsId");
 
                     b.ToTable("LeadCitation");
                 });
@@ -84,6 +82,9 @@ namespace Sample.Migrations
                     b.Property<int?>("CampaignsId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("LeadCitationid")
+                        .HasColumnType("int");
+
                     b.Property<string>("Replycitation")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -91,22 +92,14 @@ namespace Sample.Migrations
                     b.Property<int>("campId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("leadCitationid")
+                    b.Property<int>("nominatorId")
                         .HasColumnType("int");
-
-                    b.Property<string>("nominatorId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("replierId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
 
                     b.HasIndex("CampaignsId");
 
-                    b.HasIndex("leadCitationid");
+                    b.HasIndex("LeadCitationid");
 
                     b.ToTable("LeadReplyCitation");
                 });
@@ -170,7 +163,7 @@ namespace Sample.Migrations
                     b.Property<int>("CampaignsId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("LeadCitationid")
+                    b.Property<int>("LeadCitationid")
                         .HasColumnType("int");
 
                     b.Property<int>("LeadRewardResultsid")
@@ -361,28 +354,17 @@ namespace Sample.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("Sample.Models.OtherRewards.LeadCitation", b =>
-                {
-                    b.HasOne("Sample.Models.Rewards.Campaigns", "Campaigns")
-                        .WithMany()
-                        .HasForeignKey("CampaignsId");
-
-                    b.Navigation("Campaigns");
-                });
-
             modelBuilder.Entity("Sample.Models.OtherRewards.LeadCitationReplies", b =>
                 {
                     b.HasOne("Sample.Models.Rewards.Campaigns", "Campaigns")
                         .WithMany()
                         .HasForeignKey("CampaignsId");
 
-                    b.HasOne("Sample.Models.OtherRewards.LeadCitation", "leadCitation")
+                    b.HasOne("Sample.Models.OtherRewards.LeadCitation", null)
                         .WithMany("replies")
-                        .HasForeignKey("leadCitationid");
+                        .HasForeignKey("LeadCitationid");
 
                     b.Navigation("Campaigns");
-
-                    b.Navigation("leadCitation");
                 });
 
             modelBuilder.Entity("Sample.Models.OtherRewards.LeadRewardResults", b =>
@@ -410,7 +392,9 @@ namespace Sample.Migrations
 
                     b.HasOne("Sample.Models.OtherRewards.LeadCitation", "LeadCitation")
                         .WithMany()
-                        .HasForeignKey("LeadCitationid");
+                        .HasForeignKey("LeadCitationid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Sample.Models.OtherRewards.LeadRewardResults", "LeadRewardResults")
                         .WithMany()
