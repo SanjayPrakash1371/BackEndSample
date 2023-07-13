@@ -13,7 +13,7 @@ namespace Sample.Models.OtherRewards
 
         public Campaigns? Campaigns { get; set; }
 
-        public ICollection<LeadCitationReplies>?  replies { get; set; } 
+       
 
        
 

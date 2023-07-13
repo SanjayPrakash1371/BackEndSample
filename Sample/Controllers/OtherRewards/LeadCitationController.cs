@@ -22,14 +22,14 @@ namespace Sample.Controllers.OtherRewards
                          join b in dataAccess.LeadReplyCitation on a.nominatorId equals b.nominatorId
                          where b.campId == 2
 
-                         select new { Maincomment = a.citation, NId=a.nominatorId,RId = b.replierId, comment = b.Replycitation }).ToList();
+                         select new {  NId=a.nominatorId,RId = b.replierId, comment = b.Replycitation }).ToList();
 
             return Ok(query);
         }
 
         [HttpGet]
-        [Route("{nominatorId}")]
-        public async Task<ActionResult<LeadCitation>> get([FromRoute] string nominatorId)
+        [Route("{nominatorId}/{campId}")]
+        public async Task<ActionResult<LeadCitation>> get([FromRoute] string nominatorId, int campId)
         {
             // var result= await dataAccess.LeadCitation.
             //    FirstOrDefaultAsync(x=>x.nominatorId.Equals(nominatorId) && x.Campaigns.Id==2);
@@ -47,20 +47,23 @@ namespace Sample.Controllers.OtherRewards
             // return Ok(result1);
 
 
-            var result = await dataAccess.LeadCitation.
+           /* var result1 = await dataAccess.LeadReplyCitation.
                 FirstOrDefaultAsync(x=>x.nominatorId.Equals(nominatorId) && x.Campaigns.Id==2);
+            var result =  dataAccess.LeadReplyCitation.Where(x=>x.nominatorId==nominatorId).ToList(); */
+            
+            
 
             var query = (from a in dataAccess.LeadCitation
-                        join b in dataAccess.LeadReplyCitation on a.nominatorId equals nominatorId
-                         where b.campId == 2
+                        join b in dataAccess.LeadReplyCitation  on a.id equals b.leadCitation.id
+                         where b.nominatorId == nominatorId  && b.campId == campId
 
-                        select new { RId = b.replierId, comment = b.Replycitation }).ToList();
+                        select new {  nId= a.nominatorId,RId = b.replierId, comment = b.Replycitation }).ToList();
 
-            /*var query =
-  from post in database.Posts
-  join meta in database.Post_Metas on post.ID equals meta.Post_ID
-  where post.ID == id
-  select new { Post = post, Meta = meta };*/
+                    /*var query =
+          from post in database.Posts
+          join meta in database.Post_Metas on post.ID equals meta.Post_ID
+          where post.ID == id
+          select new { Post = post, Meta = meta };*/
 
 
 
