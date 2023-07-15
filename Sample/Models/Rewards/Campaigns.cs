@@ -9,6 +9,8 @@
 
         public string Start { get; set; }
 
+        // voting
+
         public string End { get; set; }
 
         public int rewardId { get; set; }

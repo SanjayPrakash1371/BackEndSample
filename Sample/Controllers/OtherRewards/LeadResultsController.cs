@@ -36,8 +36,8 @@ namespace Sample.Controllers.OtherRewards
 
             //var result = (from l in arr select new { Id = l.Key.nominatedEmpId, Count = l.ToList().Count() });
 
-            var results = (from l in dataAccess.LeadRewardResults
-                          group l by l.nominatedEmpId into g
+            var results = (from l in dataAccess.LeadRewardResults where l.campId == campId
+                          group l by l.nominatedEmpId  into g
                           select new { EmpId=g.First().nominatedEmpId, Stars = g.Sum(s => s.stars)/g.ToList().Count() }).Take(count);
                       
 

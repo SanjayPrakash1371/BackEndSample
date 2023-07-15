@@ -19,13 +19,20 @@ namespace Sample.Controllers.MonthlyRewards
 
 
         // GET: api/<MonthlyRewardsController>
-        [HttpGet]
+      /*  [HttpGet]
         public async Task<ActionResult<IEnumerable<LeadRewards>>> Get()
         {
+            var rewards = dataAccess.LeadRewards.ForEachAsync(x =>
+            {
 
-            return await dataAccess.LeadRewards.ToListAsync();
-            
-        }
+                dataAccess.Entry(x).Collection(emp => emp.employee);
+
+            });
+
+
+             return await dataAccess.LeadRewards.ToListAsync();
+
+        }*/
 
     
 

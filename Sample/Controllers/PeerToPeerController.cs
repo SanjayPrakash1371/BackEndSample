@@ -25,7 +25,11 @@ namespace Sample.Controllers
             result.ForEach(x =>
             {
                 x.employee = dataAccess.Employees.FirstOrDefault(emp => emp.empId.Equals(x.empId));
+                x.campaigns = dataAccess.Campaigns.Find(x.campId);
+                
             });
+
+            
 
             return Ok(result);
         }
